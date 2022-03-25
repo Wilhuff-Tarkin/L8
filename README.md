@@ -1,4 +1,4 @@
-# L6
+# L8
 Solution for coding task from Lesson 8. Framework enters provided websites and checks if the titles are as expected.
 Upgrades from previous version:
 - added paraller execuction of tests,
