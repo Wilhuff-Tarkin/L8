@@ -1,0 +1,44 @@
+<configuration scan="true">
+
+    <property name="DEV_HOME" value="${user.dir}/log"/>
+
+    <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %date{dd MMM yyyy HH:mm:ss}	 %green([%thread]) %highlight(%level) %logger{50} - %boldMagenta(%msg%n)
+            </Pattern>
+        </layout>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${DEV_HOME}/log_${bySecond}.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${DEV_HOME}/timeBasedlogFile.%d{yyyy-MM-dd-HH-mm}.zip</fileNamePattern>
+            <maxHistory>3</maxHistory>
+            <totalSizeCap>30KB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date{dd MMM yyyy; HH:mm:ss }[%thread] %-5level - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="HTML" class="ch.qos.logback.core.FileAppender">
+        <file>${DEV_HOME}/LogFile_${bySecond}.log.html</file>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="ch.qos.logback.classic.html.HTMLLayout">
+                <pattern>%d%thread%level%logger%msg</pattern>
+            </layout>
+        </encoder>
+    </appender>
+
+
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="HTML"/>
+    </root>
+
+</configuration>
